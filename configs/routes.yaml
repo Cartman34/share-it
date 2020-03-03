@@ -1,0 +1,169 @@
+# 
+# Usage:
+# Route Access Type > Route > Route Config
+# 
+# This YAML configuration file is made to work with package orpheus/orpheus-inputcontroller
+# 
+# HTTP Route allows the following config:
+# - path : The relative path to this route. Mandatory config.
+# - method : Restrict path access to the given HTTP method.
+# - controller : The controller to use to process this route
+# - restrictTo : Restriction configuration for this route, you can customize accessibility, the common field is "role".
+# - redirect : Redirect to the given URL, using RedirectController.
+# - url_config : Redirect to the URL provided by the configurable url_config, using RedirectController & AppConfig. Require orpheus/orpheus-webtools.
+# - render : The template to render this route, using StaticPageController. Processed as option.
+# Other fields will be send as options to the controller, controller can access to all this configuration.
+#
+# Known roles: visitor, member, moderator, administrator, developer
+# Unspecified role does not restrict access, "visitor" restricts to not-logged user only.
+#
+# Examples :
+#    home:
+#        path: "/path/in/array/config"
+#        method: "POST|GET"
+#        method: "GET"
+#        controller: "\\ShareIt\\Controller\\HomeController"
+#    home2: "/path/with/all/methods->HomeController"
+#    home3: "POST(/path/for/POST/method)->HomeController"
+
+http:
+    home:
+        path: "/"
+        controller: "\\ShareIt\\Controller\\HomeController"
+
+    user_login:
+        path: "/user/signin.html"
+        controller: "\\ShareIt\\Controller\\UserLoginController"
+        restrictTo:
+            role: visitor
+
+    logout:
+        path: "/logout.html"
+        controller: "\\ShareIt\\Controller\\LogoutController"
+        restrictTo:
+            role: member
+
+    user_file_list:
+        path: "/user/files.html"
+        controller: "\\ShareIt\\Controller\\User\\UserFileListController"
+        restrictTo:
+            role: member
+
+    user_file_upload:
+        path: "/user/files.json"
+        method: "POST"
+        controller: "\\ShareIt\\Controller\\User\\UserFileUploadController"
+        restrictTo:
+            role: member
+
+        #    user_file_edit:
+        #        path: "/user/files/{id:fileId}/"
+        #        method: "PUT"
+        #        controller: "\\ShareIt\\Controller\\User\\UserFileUpdateController"
+        #        restrictTo:
+        #          role: member
+        #
+        #    user_file_delete:
+        #        path: "/user/files/{id:fileId}/"
+        #        method: "DELETE"
+        #        controller: "\\ShareIt\\Controller\\User\\UserFileDeleteController"
+        #        restrictTo:
+        #          role: member
+
+    adm_mysettings:
+        path: "/admin/my_settings.html"
+        controller: "\\ShareIt\\Controller\\Admin\\AdminMySettingsController"
+        restrictTo:
+            role: member
+
+    adm_users:
+        path: "/admin/users.html"
+        controller: "\\ShareIt\\Controller\\Admin\\AdminUserListController"
+        restrictTo:
+            role: administrator
+
+    adm_user:
+        path: "/admin/user/{id:userID}.html"
+        controller: "\\ShareIt\\Controller\\Admin\\AdminUserEditController"
+        restrictTo:
+            role: administrator
+
+    file_download:
+        path: "/download/{id:fileID}"
+        controller: "\\ShareIt\\Controller\\FileDownloadController"
+
+
+    # Dev Area
+
+    dev_home:
+        path: "/developer/home.html"
+        controller: "\\ShareIt\\Controller\\Developer\\DevHomeController"
+        restrictTo:
+            role: developer
+
+    dev_system:
+        path: "/developer/system.html"
+        controller: "\\ShareIt\\Controller\\Developer\\DevSystemController"
+        restrictTo:
+            role: developer
+
+    dev_composer:
+        path: "/developer/composer.html"
+        controller: "\\ShareIt\\Controller\\Developer\\DevComposerController"
+
+    dev_entities:
+        path: "/developer/entities.html"
+        controller: "\\ShareIt\\Controller\\Developer\\DevEntitiesController"
+        restrictTo:
+            role: developer
+
+    dev_loglist:
+        path: "/developer/logs.html"
+        controller: "\\ShareIt\\Controller\\Developer\\DevLogListController"
+        restrictTo:
+            role: developer
+
+    dev_log_view:
+        path: "/developer/view_log.html"
+        controller: "\\ShareIt\\Controller\\Developer\\DevLogViewController"
+        restrictTo:
+            role: developer
+
+    dev_app_translate:
+        path: "/developer/translate_application.html"
+        controller: "\\ShareIt\\Controller\\Developer\\DevAppTranslateController"
+        restrictTo:
+            role: developer
+
+    dev_config:
+        path: "/developer/config.html"
+        controller: "\\ShareIt\\Controller\\Developer\\DevConfigController"
+        restrictTo:
+            role: developer
+
+
+    # Setup
+
+    setup_start:
+        path: "/setup/"
+        controller: "\\ShareIt\\Controller\\Setup\\StartSetupController"
+
+    setup_checkfs:
+        path: "/setup/check-filesystem.html"
+        controller: "\\ShareIt\\Controller\\Setup\\CheckFileSystemSetupController"
+
+    setup_checkdb:
+        path: "/setup/check-database.html"
+        controller: "\\ShareIt\\Controller\\Setup\\CheckDatabaseSetupController"
+
+    setup_installdb:
+        path: "/setup/install-database.html"
+        controller: "\\ShareIt\\Controller\\Setup\\InstallDatabaseSetupController"
+
+    setup_installfixtures:
+        path: "/setup/install-fixtures.html"
+        controller: "\\ShareIt\\Controller\\Setup\\InstallFixturesSetupController"
+
+    setup_end:
+        path: "/setup/finish.html"
+        controller: "\\ShareIt\\Controller\\Setup\\EndSetupController"
