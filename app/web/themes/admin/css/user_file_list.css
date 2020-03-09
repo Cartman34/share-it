@@ -35,3 +35,17 @@
 	border-color: #007bff !important;
 	color: #007bff !important;
 }
+
+.loading {
+	/*display: none;*/
+}
+
+.just-updated {
+	animation: blinker 1.5s linear 1;
+}
+
+@keyframes blinker {
+	50% {
+		opacity: 0;
+	}
+}

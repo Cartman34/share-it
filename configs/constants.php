@@ -79,3 +79,5 @@ defifn('DOMAIN_TRANSLATIONS', 'translations');
 
 defifn('TRANSLATIONS_PATH', STOREPATH . 'translations/');
 
+defifn('REPOSITORY_PATH', '/home/sowapps/share-it/repository');
+

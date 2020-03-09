@@ -71,6 +71,42 @@ class User extends AbstractUser implements FixtureInterface {
 		return isset($status[$this->accesslevel]) ? static::text('role_' . $status[$this->accesslevel]) : static::text('role_unknown', $this->accesslevel);
 	}
 	
+	/*
+	public function getPendingFiles() {
+		$path = $this->checkRepository();
+		$files = [];
+		foreach( cleanscandir($path) as $file) {
+			$files[] = $path . $file;
+		}
+		return $files;
+	}
+	
+	public function checkRepository() {
+		$path = $this->getRepositoryPath();
+		if( is_dir($path) ) {
+			if( !is_writable($path) ) {
+				throw new Exception(sprintf('User repository path "%s" is not writable', $path));
+			}
+			return;
+		}
+		// Parent should exist and be writable
+		$reposPath = dirname($path);
+		if( !is_dir($reposPath) ) {
+			throw new Exception(sprintf('Repository path "%s" does not exist', $reposPath));
+		}
+		if( !is_writable($reposPath) ) {
+			throw new Exception(sprintf('Repository path "%s" is not writable', $reposPath));
+		}
+		mkdir($path, 0777);
+		
+		return $path;
+	}
+	
+	public function getRepositoryPath() {
+		return REPOSITORY_PATH . '/' . $this->id();
+	}
+	*/
+	
 	public function activate() {
 		$this->published = 1;
 		$this->logEvent('activation');

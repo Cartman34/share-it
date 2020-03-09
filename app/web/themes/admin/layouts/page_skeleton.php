@@ -189,9 +189,9 @@ foreach( $this->listJSURLs(HTMLRendering::LINK_TYPE_PLUGIN) as $url ) {
 ?>
 
 <script src="<?php echo $rendering->getThemeURL(); ?>libs/sb-admin/js/scripts.js"></script>
-<script src="<?php echo JSURL; ?>orpheus.js"></script>
-<script src="<?php echo JSURL; ?>orpheus-confirmdialog.js"></script>
-<script src="<?php echo JSURL; ?>script.js"></script>
+<script src="<?php echo JS_URL; ?>orpheus.js"></script>
+<script src="<?php echo JS_URL; ?>orpheus-confirmdialog.js"></script>
+<script src="<?php echo JS_URL; ?>script.js"></script>
 
 <script src="<?php echo $rendering->getJSURL(); ?>orpheus.js"></script>
 <script src="<?php echo $rendering->getJSURL(); ?>script.js"></script>

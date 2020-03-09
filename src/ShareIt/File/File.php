@@ -419,6 +419,19 @@ class File extends PermanentEntity {
 	public static function getByParent($usage, $parent) {
 		return static::get(static::ei('usage') . ' LIKE ' . static::formatValue($usage) . ' AND ' . static::ei('parent_id') . ' = ' . id($parent), 'id ASC');
 	}
+	
+	public static function getEditableFields() {
+		return ['name'];
+	}
+	
+	public function asArray($model = 'all') {
+		return array_filterbykeys($this->all, ['id', 'create_date', 'name', 'extension', 'mimetype', 'usage', 'parent_id', 'position']) + [
+				'is_image'      => $this->isImage(),
+				'label'         => $this->getLabel(),
+				'link'          => $this->getLink(),
+				'download_link' => $this->getLink(true),
+			];
+	}
 }
 
 File::init();

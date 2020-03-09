@@ -20,6 +20,12 @@ class UserFileListController extends UserController {
 		
 		$this->addThisToBreadcrumb();
 		
+		//		try {
+		//			$pendingFiles = $this->user->getPendingFiles();
+		//		} catch( Exception $e ) {
+		//			log_error($e);
+		//		}
+		
 		try {
 			if( $request->hasDataKey('submitDelete', $fileId) ) {
 				$file = File::load($fileId, false);
@@ -46,6 +52,7 @@ class UserFileListController extends UserController {
 			'allowUpdate' => true,
 			'allowDelete' => true,
 			'query'       => $query,
+			//			'pendingFiles' => $pendingFiles,
 		]);
 	}
 	

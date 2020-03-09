@@ -28,7 +28,6 @@ class UploadFile {
 	};
 	
 	constructor(file) {
-		// console.log('New upload file from', file);
 		this.file = file;
 		this.state = UploadFile.STATE.STARTING;
 		this.data = null;
@@ -80,8 +79,11 @@ class UploadFile {
 		return $('<i class=""></i>').addClass(iconClass);
 	};
 	
+	renderLabel() {
+		return $('<span class="label"></span>').text(this.getLabel().substring(0, 50)).attr('title', this.getLabel());
+	}
+	
 	renderBadge() {
-		// var badgeClass = 'badge-success';
 		var badgeClass, badgeText, badgeTitle;
 		switch( this.state ) {
 			case UploadFile.STATE.STARTING:
@@ -123,7 +125,10 @@ class UploadFile {
 	}
 	
 	render() {
-		var $name = $('<div></div>').append(this.renderIcon()).append(' ' + this.getLabel()).append($('<span class="text-muted ml-2"></span>').text('(' + this.getHumanSize() + ')'));
+		var $name = $('<div></div>')
+			.append(this.renderIcon())
+			.append(this.renderLabel())
+			.append($('<span class="text-muted ml-2"></span>').text('(' + this.getHumanSize() + ')'));
 		var $state = $('<span></span>').append(this.renderBadge());
 		if( this.state === UploadFile.STATE.ERROR ) {
 			$state.append(this.renderRetryButton());
@@ -148,7 +153,6 @@ class UploadBucket {
 	}
 	
 	addFileList(fileList) {
-		// console.log('fileList', fileList);
 		var pendingFiles = [];
 		var currentBatch = 0;
 		for( var i = 0; i < fileList.length; i++ ) {
@@ -163,7 +167,6 @@ class UploadBucket {
 			pendingFiles[currentBatch].push(uploadFile);
 		}
 		pendingFiles.forEach(files => {
-			// console.log('files', files);
 			this.uploader.commit(files);
 		});
 	}
@@ -186,7 +189,7 @@ class UploadHandler {
 	
 	commit(files) {
 		var self = this;
-		var form = new FormData(form);
+		var form = new FormData();
 		files.forEach(uploadFile => {
 			form.append('file[]', uploadFile.file);
 			uploadFile.setState(UploadFile.STATE.STARTING);
@@ -208,19 +211,11 @@ class UploadHandler {
 					if( delay > 3 ) {
 						progress += ' / ' + getHumanBytes(Math.round(event.loaded * 1000 / delay)) + '/s';
 					}
-					console.log('Upload', delay, progress, event);
 					self.setBatchState(files, UploadFile.STATE.UPLOADING, progress);
 				}, false);
-				
-				//Download progress
-				// xhr.addEventListener("progress", function (event) {
-				// 	var percentComplete = event.loaded / event.total;
-				// 	console.log('Download', Math.round((percentComplete * 100) / 2) + "%", event);
-				// }, false);
 				return xhr;
 			}
 		}).done(function (data) {
-			console.log('Upload done, got', data);
 			if( !isArray(data) ) {
 				self.setBatchState(files, UploadFile.STATE.FINISHED);
 			} else {
@@ -233,10 +228,11 @@ class UploadHandler {
 					}
 				});
 			}
+			if( userFileList ) {
+				userFileList.requestRefresh();
+			}
 		}).fail(function (response, textStatus, errorThrown) {
-			// console.log('Upload failed, got', response, textStatus, errorThrown);
-			// console.log('response', response.statusCode(), response.getAllResponseHeaders());
-			self.setBatchState(files, UploadFile.STATE.ERROR, {status: textStatus, message: errorThrown});
+			self.setBatchState(files, UploadFile.STATE.ERROR, {status: textStatus, message: response.responseJSON ? response.responseJSON.description : errorThrown});
 		});
 	}
 	

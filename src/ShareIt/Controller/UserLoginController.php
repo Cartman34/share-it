@@ -22,6 +22,7 @@ class UserLoginController extends HTTPController {
 	 */
 	public function run($request) {
 		$FORM_TOKEN = new FormToken();
+		$allowRegister = true;
 		
 		if( User::isLogged() ) {
 			return new RedirectHTTPResponse(u(getHomeRoute()));
@@ -34,7 +35,7 @@ class UserLoginController extends HTTPController {
 				User::userLogin($request->getData('login'));
 				return new RedirectHTTPResponse(u(getHomeRoute()));
 				
-			} elseif( $request->hasData('submitRegister') ) {
+			} elseif( $request->hasData('submitRegister') && $allowRegister ) {
 				startReportStream('register');
 				$user = User::createAndGet($request->getData('user'), ['name', 'fullname', 'email', 'email_public', 'password']);
 				sendAdminRegistrationEmail($user);
@@ -47,7 +48,10 @@ class UserLoginController extends HTTPController {
 			endReportStream();
 		}
 		
-		return HTMLHTTPResponse::render('app/user_login', ['FORM_TOKEN' => $FORM_TOKEN]);
+		return HTMLHTTPResponse::render('app/user_login', [
+			'allowRegister' => $allowRegister,
+			'FORM_TOKEN'    => $FORM_TOKEN,
+		]);
 	}
 	
 }

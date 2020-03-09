@@ -16,34 +16,20 @@ $rendering->useLayout('page_skeleton');
 ?>
 <div class="jumbotron">
 	<div class="container">
-		<h1>Hello PHP Developer !</h1>
+		<h1>Welcome to Share It !</h1>
 		<p>
-			Welcome to your own Orpheus application,<br>
-			You may want to edit this Controller & View, please see the controller <u>HomeController</u> &amp; the template <u>app/home.php</u>.<br>
-			If you want more information, please visit our website.
+			Share It is an Open Source solution to share private files,<br>
+			Drag it to your file space and you immediately got a link to share it !<br>
 		</p>
 		<p>
-			<a class="btn btn-primary btn-lg" href="http://orpheus-framework.com/" role="button" target="_blank">
-				Get documented <i class="fas fa-angle-double-right fa-sm"></i>
+			<a class="btn btn-primary btn-lg" href="https://github.com/Sowapps/share-it" role="button" target="_blank">
+				Share It GitHub <i class="fab fa-github fa-sm"></i>
 			</a>
 		</p>
 	</div>
 </div>
 <div class="container">
 	<div class="row">
-		<div class="col-md-4">
-			<h2>The ElePHPant</h2>
-			<p>
-				Orpheus is developed using PHP and your app is designed using a PHP-only MVC model. But enjoy our twig library if you want so.
-				With all our love of code, we bring lot of tools to help you to develop a great application.
-				But the greatest help is from the manual, so abuse about it.
-			</p>
-			<p>
-				<a class="btn btn-secondary" href="https://www.php.net/" role="button" target="_blank">
-					PHP Manual <i class="fas fa-angle-double-right fa-sm"></i>
-				</a>
-			</p>
-		</div>
 		<div class="col-md-4">
 			<h2>Bootstrap your app</h2>
 			<p>
@@ -58,15 +44,27 @@ $rendering->useLayout('page_skeleton');
 			</p>
 		</div>
 		<div class="col-md-4">
-			<h2>The Awesome Font</h2>
+			<h2>Orpheus Framework</h2>
 			<p>
-				So now, what about icons ? You need it in all apps, even more if it fits your needs, so we added it to you, if you want so.
-				We love Font Awesome and we ensure that is making your app more iconic !
-				Feel free to read the documentation and browse the gallery.
+				Share It is developed using the Orpheus PHP Framework.
+				This one is another sowapps's Open Source Solution we bring to the community to help them to develop quickly brand new web applications.
 			</p>
 			<p>
-				<a class="btn btn-secondary" href="https://fontawesome.com/icons?d=gallery&m=free" role="button" target="_blank">
-					Font Awesome Gallery <i class="fas fa-angle-double-right fa-sm"></i>
+				<a class="btn btn-secondary" href="http://orpheus-framework.com/" role="button" target="_blank">
+					Orpheus Website <i class="fas fa-angle-double-right fa-sm"></i>
+				</a>
+			</p>
+		</div>
+		<div class="col-md-4">
+			<h2>Sowapps</h2>
+			<p>
+				Sowapps is the IT company that initiated Share It and Orpheus projects.
+				Sowapps intents to help all web developers bring online proper web application quickly.
+				Florent HAZARD is the founder of Sowapps Company.
+			</p>
+			<p>
+				<a class="btn btn-secondary" href="http://sowapps.com/" role="button" target="_blank">
+					Sowapps Website <i class="fas fa-angle-double-right fa-sm"></i>
 				</a>
 			</p>
 		</div>

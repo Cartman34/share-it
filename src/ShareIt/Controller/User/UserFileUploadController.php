@@ -24,6 +24,10 @@ class UserFileUploadController extends HTTPController {
 		$user = User::getLoggedUser();
 		/** @var UploadedFile[] $files */
 		$files = UploadedFile::load('file');
+		if( !$files && $request->isPostSiteOverLimit() ) {
+			error_clear_last();
+			throw new UserException('Upload over limit');
+		}
 		$results = [];
 		foreach( $files as $uploadedFile ) {
 			$result = (object) ['name' => $uploadedFile->getFileName(), 'status' => null];

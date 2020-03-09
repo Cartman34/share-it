@@ -93,7 +93,7 @@ $libExtension = DEV_VERSION ? '' : '.min';
 	?>
 </main>
 
-<footer class="container">
+<footer class="container mt-5">
 	<p>© <?php echo t('app_name'); ?> <?php echo date('Y'); ?></p>
 </footer>
 

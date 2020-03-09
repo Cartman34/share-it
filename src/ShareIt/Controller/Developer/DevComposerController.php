@@ -31,16 +31,12 @@ class DevComposerController extends DevController {
 			}
 			if( !is_writable(COMPOSER_HOME) ) {
 				reportWarning('composerHomeNotWritable', DOMAIN_COMPOSER);
-				// 				throw new UserException('composerFileNotWritable');
 			}
 			
 			// Always save data
 			if( ($data = $request->getArrayData('composer')) && is_array($data) ) {
-				// 				debug('$data', $data);
-				// 				die();
 				$composerConfig = json_decode(file_get_contents($composerFile));
 				
-				// 				debug('$data', $data);
 				foreach( $data as $property => $value ) {
 					$composerConfig->$property = $value;
 				}
@@ -55,8 +51,6 @@ class DevComposerController extends DevController {
 					unset($composerConfig->require);
 				}
 				
-				// 				$composerConfig->test = 'Test property';
-				// 				debug('$composerConfig', $composerConfig);
 				file_put_contents($composerFile, json_encode($composerConfig));
 				
 			}
@@ -70,17 +64,13 @@ class DevComposerController extends DevController {
 				// 				$devOpt		= $request->hasData('update/withdev') ? '--dev' : '--no-dev';
 				$optiOpt = $request->hasData('update/optimize') ? '--optimize-autoloader' : '';
 				
-				// 			debug('CWD => '.getcwd());
 				putenv('COMPOSER_HOME=' . COMPOSER_HOME);
 				
 				$cmd = 'cd "' . APPLICATIONPATH . '"; php composer.phar ' . $command . ' ' . $devOpt . ' ' . $optiOpt . ' 2>&1';
-				// 			$cmd = 'php '.APPLICATIONPATH.'composer.phar '.$command.' '.$devOpt.' '.$optiOpt.' --no-progress';
-				// 				debug('Command => '.$cmd);
 				
 				ob_start();
 				$return = null;
 				system($cmd, $return);
-				// 			system('php '.APPLICATIONPATH.'composer.phar '.$command.' '.$devOpt.' '.$optiOpt.' --no-progress');
 				$output = ob_get_clean();
 				
 				reportInfo(nl2br(t('outputLog', DOMAIN_COMPOSER, $cmd, $output)));
@@ -89,9 +79,6 @@ class DevComposerController extends DevController {
 					throw new UserException('updateFailed');
 				}
 				reportSuccess('successUpdateInstall', DOMAIN_COMPOSER);
-				
-				// 				debug('Return => '.$return);
-				// 				debug('Output', nl2br($output));
 			}
 		} catch( UserException $e ) {
 			reportError($e, DOMAIN_COMPOSER);

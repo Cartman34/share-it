@@ -69,7 +69,9 @@ abstract class AdminController extends AbstractHttpController {
 	
 	public function render($response, $layout, $values = []) {
 		if( isset($GLOBALS['USER']) ) {
-			$values['USER'] = $GLOBALS['USER'];
+			$values['user'] = $GLOBALS['USER'];
+			// BC
+			$values['USER'] = &$values['user'];
 		}
 		$values['Breadcrumb'] = $this->breadcrumb;
 		return parent::render($response, $layout, $values);
